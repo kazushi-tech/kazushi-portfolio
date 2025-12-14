@@ -1,58 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import { NavItem } from '../types';
 import { Link, useLocation } from 'react-router-dom';
+import { COPY } from '../constants/copy';
+import Container from './Container';
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Projects', href: '/#projects' },
-  { label: 'About', href: '/#about' },
-  { label: 'Skills', href: '/#skills' },
-  { label: 'Contact', href: '/#contact' },
+  { label: COPY.NAV.HOME, href: '/#home' },
+  { label: COPY.NAV.PROJECTS, href: '/#projects' },
+  { label: COPY.NAV.ABOUT, href: '/#about' },
+  { label: COPY.NAV.SKILLS, href: '/#skills' },
+  { label: COPY.NAV.CONTACT, href: '/#contact' },
 ];
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home'); // Default to home
   const location = useLocation();
+  const isProjectsPage = location.pathname.startsWith('/projects');
 
-  // Scroll handler for styling
+  // Scroll handler for styling (navbar background)
   useEffect(() => {
+    // On projects pages, keep header solid for readability
+    if (isProjectsPage) {
+      setScrolled(true);
+      return;
+    }
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isProjectsPage]);
 
-  // Section highlight spy (only on home page)
+  // IntersectionObserver for Active Section Detection
   useEffect(() => {
     if (location.pathname !== '/') return;
 
-    const handleSpy = () => {
-      const sections = NAV_ITEMS.map(item => item.href.replace('/', '').substring(1));
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+    const options = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px', // Active when element is in the upper-middle part of screen
+      threshold: 0
     };
-    window.addEventListener('scroll', handleSpy);
-    return () => window.removeEventListener('scroll', handleSpy);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, options);
+
+    const sections = NAV_ITEMS.map(item => item.href.replace('/#', ''));
+    sections.forEach(section => {
+      const el = document.getElementById(section);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, [location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setMobileMenuOpen(false);
     
     // If on home page and clicking anchor, smooth scroll
-    if (location.pathname === '/' && href.startsWith('/#')) {
+    if (location.pathname === '/' && href.includes('#')) {
       e.preventDefault();
-      const id = href.replace('/', '');
-      const element = document.querySelector(id);
+      const id = href.split('#')[1];
+      const element = document.getElementById(id); // safer than querySelector for IDs
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
         // Update URL hash without reload
@@ -64,23 +80,23 @@ const Header: React.FC = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'py-3 md:py-4 bg-background/90 backdrop-blur-md border-b border-white/5' : 'py-5 md:py-6 bg-transparent'
+        scrolled ? 'py-3 md:py-4 bg-slate-950/90 backdrop-blur-sm border-b border-white/5 shadow-lg' : 'py-5 md:py-6 bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
+      <Container className="flex justify-between items-center">
         {/* Logo - Clickable to Home */}
         <Link 
           to="/" 
-          className="relative z-50 p-2 -ml-2 text-xl md:text-2xl font-bold tracking-tighter hover:text-emerald-400 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg" 
+          className="relative z-50 p-2 text-xl md:text-2xl font-bold tracking-tighter hover:text-emerald-400 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg" 
           aria-label="ホームに戻る"
         >
           KZ <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">/</span> Kazushi
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8" aria-label="メインナビゲーション">
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8" aria-label="メインナビゲーション">
           {NAV_ITEMS.map((item) => {
-            const sectionName = item.href.replace('/', '').substring(1);
+            const sectionName = item.href.split('#')[1];
             const isActive = location.pathname === '/' && activeSection === sectionName;
             
             return (
@@ -106,7 +122,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden p-2 -mr-2 text-slate-200 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg"
+          className="md:hidden p-2 text-slate-200 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
@@ -120,7 +136,7 @@ const Header: React.FC = () => {
             )}
           </svg>
         </button>
-      </div>
+      </Container>
 
       {/* Mobile Nav Dropdown */}
       {mobileMenuOpen && (
@@ -145,7 +161,7 @@ const Header: React.FC = () => {
              onClick={() => setMobileMenuOpen(false)}
              className="pt-4 mt-2 border-t border-slate-800 text-sm text-slate-500 hover:text-slate-300 transition-colors"
           >
-            ← Back to Home
+            ← {COPY.NAV.HOME}
           </Link>
         </nav>
       )}

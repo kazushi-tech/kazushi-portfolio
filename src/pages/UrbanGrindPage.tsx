@@ -1,157 +1,156 @@
 import React from 'react';
 import ProjectDetailLayout from '../components/ProjectDetailLayout';
 import { useDocumentHead } from '../hooks/useDocumentHead';
-import { urbanGrindImages } from '../data/projectImages';
+import { projects } from '../data/projects';
+import { COPY } from '../constants/copy';
 
 const UrbanGrindPage: React.FC = () => {
+  const project = projects.find(p => p.id === 'urban-grind-tokyo');
+
   useDocumentHead({
-    title: "Kazushi's Urban Grind - コンセプトカフェサイト",
+    title: "Kazushi's Urban Grind - 都市の隠れ家カフェ",
     description: '「もし自分がカフェを開くなら」を形にしたコンセプトサイト。Vite × React × TailwindCSS で構築。',
   });
 
+  if (!project) return <div>Project not found</div>;
+
   return (
     <ProjectDetailLayout
-      name="Kazushi's Urban Grind"
-      subtitle="コンセプトカフェサイト"
+      name={project.name}
+      subtitle="都市の隠れ家カフェ"
       status="completed"
       coverImage={{
-        src: urbanGrindImages.hero,
-        alt: 'Urban Grind カフェサイト',
+        src: '/images/urban-grind/hero-cafe-interior.webp',
+        alt: 'Urban Grind Cafe Interior',
       }}
-      projectType="Concept website"
-      role="Designer, Frontend Engineer"
+      projectType={COPY.HERO.VALUES.CONCEPT_SITE}
+      role={COPY.HERO.VALUES.DESIGN_DEV}
       period="2024"
-      tools={['Vite', 'React', 'TypeScript', 'TailwindCSS', 'Vercel']}
+      tools={['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite']}
       metrics={[
-        { label: 'Pages', value: '1' },
-        { label: 'Sections', value: '5' },
-        { label: 'Build', value: '3日' },
+        { label: COPY.HERO.METRICS.LIGHTHOUSE, value: '98+' },
+        { label: COPY.HERO.METRICS.PAGES, value: '1' },
+        { label: COPY.HERO.METRICS.RESPONSIVE, value: '100%' },
       ]}
-      liveUrl="https://urban-grind-site.vercel.app/"
+      liveUrl={project.link}
+      githubUrl={project.githubUrl}
+      
+      contribution={[
+        'UIデザイン & コンセプト設計',
+        'React + TypeScript 実装',
+        'パフォーマンスチューニング (WebP/Lazy Load)',
+      ]}
+
       summary={{
-        problem: '架空のカフェでも「行ってみたい」と思わせるリアリティと空気感が必要だった',
-        solution: '自然光と都会の洗練された雰囲気をWebデザインで表現、1ページ完結の構成',
-        impact: 'デザインの引き出しとして活用、ポートフォリオの差別化に貢献',
+        problem: '多くのカフェサイトは情報過多で、店舗が持つ本来の「静寂な空気感」や「上質さ」がWeb上では伝わりにくいという課題がありました。',
+        solution: '情報を削ぎ落としたミニマルなデザインと、スクロールに合わせてゆったりとコンテンツが現れるインタラクションを採用し、店舗の空気感を再現しました。',
+        impact: 'ブランドの世界観を損なうことなく、かつメニューやアクセスなどの重要情報へ直感的に辿り着ける、没入感と実用性を兼ね備えたサイトを実現しました。Lighthouse Performance 98点 / Accessibility 100点を達成。',
       }}
-      keyScreens={[
-        {
-          src: urbanGrindImages.hero,
-          alt: 'メインビジュアル',
-          title: 'Hero Section',
-          caption: '洗練されたカフェ空間を表現するメインビジュアル。',
-        },
-        {
-          src: urbanGrindImages.menu,
-          alt: 'メニュー',
-          title: 'Menu & Latte Art',
-          caption: 'コーヒー・デザートを視覚的に魅力的に伝えるカードレイアウト。',
-        },
-        {
-          src: urbanGrindImages.interior,
-          alt: '店内イメージ',
-          title: 'Atmosphere',
-          caption: 'ハンドドリップの温かみと居心地の良い空間を表現。',
-        },
+
+      challenges={[
+        { description: '世界観とユーザビリティの両立: 画像主体の構成にしつつ、固定ヘッダーと直感的なナビゲーションで、ユーザーを迷子にさせない設計を徹底しました。' },
+        { description: 'パフォーマンスと高画質のバランス: 雰囲気を伝えるために高解像度画像を使用しましたが、徹底的なWebP化と遅延読み込みにより、Lighthouse Performance 98点を維持しました。' },
       ]}
-      features={[
-        {
-          title: '洗練された世界観',
-          description: '都会の喧騒を忘れさせる、開放的なカフェ空間をWeb上で表現。',
-          bullets: [
-            '清潔感のあるデザイン',
-            '魅力的な写真選定',
-            '余白を活かしたミニマルレイアウト',
-          ],
-          image: {
-            src: urbanGrindImages.hero,
-            alt: 'インテリア',
-          },
-        },
-        {
-          title: 'メニュー＆ギャラリー',
-          description: '自慢のコーヒーやデザートを魅力的に紹介。店舗の空気感を伝えるギャラリー。',
-          bullets: [
-            'カード形式のメニュー表示',
-            'ホバーエフェクトでインタラクション',
-            '食欲をそそる写真配置',
-          ],
-          image: {
-            src: urbanGrindImages.menu,
-            alt: 'ラテアート',
-          },
-        },
-        {
-          title: 'オーナーメッセージ',
-          description: '「都会の喧騒を忘れて、丁寧に淹れた一杯でリセット」のコンセプトを訴求。',
-          bullets: [
-            'ストーリー性のあるコピー',
-            'ブランドアイデンティティの確立',
-            '訪問者への共感ポイント',
-          ],
-          image: {
-            src: urbanGrindImages.features,
-            alt: 'カウンター詳細',
-          }
-        },
-      ]}
-      process={[
-        {
-          step: 'コンセプト設計',
-          description: '「都会のオアシス」をテーマに、リラックスできる世界観を設定。',
-        },
-        {
-          step: 'Antigravity → TailwindCSS',
-          description: '初期構築からカスタマイズ。洗練されたタイポグラフィと配色を適用。',
-        },
-        {
-          step: 'コンテンツ整備',
-          description: 'メニュー写真、店舗情報、オーナーメッセージを作成・選定。',
-        },
-        {
-          step: 'デプロイ',
-          description: 'Vercel にデプロイし公開。',
-        },
-      ]}
-      outcome={{
-        results: '実在しない店舗ながら、行きたくなるようなリアリティと空気感を実現。Webデザイン表現の幅を広げた。',
-        learnings: [
-          '写真のトーン＆マナーがサイト全体の印象を決定づける',
-          'シンプルなレイアウトこそ、余白や文字組のバランスが重要',
-          'コンセプトに合わせた素材選定の重要性',
-        ],
-      }}
+
+      // Gallery (Unified)
       gallery={[
         {
           id: 'hero',
-          src: urbanGrindImages.hero,
-          alt: 'Hero',
-          title: 'Site Hero',
-          caption: 'メインビジュアル',
+          src: '/images/urban-grind/hero-cafe-interior.webp',
+          alt: 'Hero Section',
+          title: 'Hero / First Impression',
+          caption: '没入感を高めるファーストビュー (Desktop)',
+          type: 'UI Screenshot',
         },
         {
           id: 'menu',
-          src: urbanGrindImages.menu,
-          alt: 'Menu',
-          title: 'Menu',
-          caption: 'メニューセクション',
+          src: '/images/urban-grind/real-menu-ui.png',
+          alt: 'Real Menu Page',
+          title: 'Dynamic Menu Page',
+          caption: '実際のサイト：カテゴリ切り替えとスムーズなアニメーション',
+          type: 'UI Screenshot',
         },
         {
-          id: 'interior',
-          src: urbanGrindImages.interior,
-          alt: 'Interior',
-          title: 'Interior',
-          caption: 'インテリア',
+          id: 'gallery-ui',
+          src: '/images/urban-grind/real-gallery-ui.png',
+          alt: 'Gallery Page UI',
+          title: 'Masonry Gallery UI',
+          caption: '実際のサイト：Masonryレイアウトによる写真ギャラリー',
+          type: 'UI Screenshot',
         },
         {
-          id: 'features',
-          src: urbanGrindImages.features,
-          alt: 'Features',
-          title: 'Details',
-          caption: '店舗詳細',
+          id: 'brewing',
+          src: '/images/urban-grind/hand-drip-brewing.png',
+          alt: 'Hand Drip Brewing',
+          title: 'Hand Drip Process',
+          caption: '一杯ずつ丁寧に淹れるハンドドリップの様子',
+          type: 'UI Screenshot',
         },
       ]}
-      prevProject={{ name: 'KireiRoutine', url: '/projects/kireiroutine' }}
-      nextProject={{ name: 'AI News Bot', url: '/projects/ai-news-bot' }}
+
+      features={[
+        {
+          title: '没入感を生むHeroセクション',
+          description: 'ファーストビューで店舗の空気感を一瞬で伝える全画面ビジュアルを採用。スクロールを促す控えめなアニメーションで、ユーザーを自然にコンテンツへ誘導します。',
+          bullets: [
+            '全画面の高品質な空間ビジュアル',
+            'スクロールを促すマイクロインタラクション',
+            'ノイズを排除したUIデザイン'
+          ]
+        },
+        {
+          title: '直感的なメニュー閲覧',
+          description: 'カテゴリ（Coffee, Food, Sweets）の切り替えをスムーズなトランジションで実装。ストレスなくメニューを閲覧でき、選ぶ楽しさを演出しています。',
+          bullets: [
+            'タブ切り替えによるスムーズな遷移',
+            '美味しさを引き立てる画像の配置',
+            '価格と説明の可読性確保'
+          ]
+        },
+        {
+          title: '店舗の空気感を伝えるギャラリー',
+          description: '画一的なグリッドではなく、あえてリズムを持たせたレイアウトで写真を配置。店内の「散策」を楽しむような閲覧体験を提供します。',
+          bullets: [
+            'Masonryレイアウトによるリズム感',
+            'クリックで拡大できるLightbox',
+            'スマホでも崩れないレスポンシブ対応'
+          ]
+        },
+      ]}
+
+      techHighlights={[
+        { title: 'コンポーネント指向設計', description: 'Atomic Designを意識し、ボタンやカードなどのUIパーツを再利用可能な粒度で分割。将来的なページ追加にも柔軟に対応できる設計です。' },
+        { title: 'Framer Motionによる演出', description: '「静寂」を表現するため、派手な動きは避け、opacityとy軸移動のみのシンプルな出現アニメーションで統一しています。' },
+      ]}
+
+      process={[
+        { step: '競合調査 & コンセプト立案', description: '「隠れ家」「上質」をキーワードにムードボードを作成。既存のカフェサイトとの差別化ポイントを明確化しました。' },
+        { step: 'FigmaによるUIデザイン', description: '余白の取り方やフォント選定（Noto Serif JP）にこだわり、プロトタイプを作成して動線を確認しました。' },
+        { step: 'Vite + React実装', description: 'パフォーマンスを最優先に構成。画像最適化とバンドルサイズ削減を意識しながらコーディングを行いました。' },
+      ]}
+
+      outcome={{
+        results: 'Lighthouse Performance 98点、Accessibility 100点を達成。\nビジュアル重視のサイトでありながら、ストレスのない高速な読み込み体験を実現しました。',
+        learnings: [
+          '画像の遅延読み込み（Lazy Loading）がUX指標に与える影響の再確認',
+          'ブランドイメージを体現するためのフォント選びと、それを支える余白の重要性',
+          'ユーザビリティを犠牲にしないミニマルデザインのバランス感覚',
+        ],
+        scores: [
+          { label: COPY.OUTCOME.SCORES.PERFORMANCE, value: 98 },
+          { label: COPY.OUTCOME.SCORES.ACCESSIBILITY, value: 100 },
+          { label: COPY.OUTCOME.SCORES.BEST_PRACTICES, value: 100 },
+          { label: COPY.OUTCOME.SCORES.SEO, value: 100 },
+        ]
+      }}
+
+      nextSteps={[
+        { description: '予約システムの統合: 外部サービス遷移ではなく、サイト内で完結するシンプルな予約フォームの実装' },
+        { description: 'CMS導入: オーナー自身が季節のメニューやお知らせを更新できる仕組み（MicroCMS等）の構築' },
+      ]}
+      
+      prevProject={{ name: 'KireiRoutine', url: '/projects/kirei-routine' }}
+      nextProject={{ name: 'KireiRoutine', url: '/projects/kirei-routine' }}
     />
   );
 };

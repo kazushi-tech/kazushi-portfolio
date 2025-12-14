@@ -56,7 +56,7 @@ const RotatingShape = () => {
   });
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
+    <mesh ref={meshRef} position={[-0.25, 0, 0]} scale={1.9}>
       {/* Balanced size - visible but not overwhelming */}
       <torusKnotGeometry args={[1.1, 0.35, 250, 32]} />
       {/* 
@@ -111,8 +111,15 @@ const Stars = () => {
 
 const ExperienceCanvas: React.FC = () => {
   return (
-    <div className="w-full h-full min-h-[400px]" role="img" aria-label="回転する3Dトーラスノットのアニメーション">
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+    <div className="w-full h-full min-h-[480px] md:min-h-[640px]" role="img" aria-label="回転する3Dトーラスノットのアニメーション">
+      <Canvas
+        camera={{ position: [0.35, 0.1, 4.4], fov: 49 }}
+        gl={{ alpha: true, antialias: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
+        style={{ background: 'transparent' }}
+      >
         {/* Lights - tuned for silver/chrome look */}
         
         {/* Low ambient light to keep shadows dark and contrasted */}

@@ -18,6 +18,13 @@ export type Project = {
   outcome: string;
   tech: string[];
   link?: string;
+  githubUrl?: string; // Added for repo links
+  links?: {
+    demo?: string;
+    github?: string;
+    docs?: string; // README etc
+    sample?: string; // Sample Output
+  };
   caseStudyUrl?: string;
   thumbnail: string;
 };
@@ -35,6 +42,11 @@ export const projects: Project[] = [
     outcome: "自分の部屋で1年運用しながら改善中、ポートフォリオ兼実用ツールとして公開。",
     tech: ["Vite", "React", "TypeScript", "TailwindCSS", "PWA", "Antigravity"],
     link: "https://kireiroutine-app.vercel.app/",
+    githubUrl: "https://github.com/kazushi-tech/kireiroutine-app",
+    links: {
+      demo: "https://kireiroutine-app.vercel.app/",
+      github: "https://github.com/kazushi-tech/kireiroutine-app",
+    },
     caseStudyUrl: "/projects/kireiroutine",
     thumbnail: kireiroutineThumb,
   },
@@ -50,6 +62,11 @@ export const projects: Project[] = [
     outcome: "実在しない店舗ながらリアリティのある空気感を実現、デザインの引き出しとして公開。",
     tech: ["Vite", "React", "TypeScript", "TailwindCSS", "Vercel"],
     link: "https://urban-grind-site.vercel.app/",
+    githubUrl: "https://github.com/kazushi-tech/urban-grind-site",
+    links: {
+      demo: "https://urban-grind-site.vercel.app/",
+      github: "https://github.com/kazushi-tech/urban-grind-site",
+    },
     caseStudyUrl: "/projects/urban-grind",
     thumbnail: urbanGrindThumb,
   },
@@ -65,6 +82,11 @@ export const projects: Project[] = [
     outcome: "開発中。Publish機能やWeb UIを今後検討予定。",
     tech: ["Node.js", "TypeScript", "Gemini API", "Markdown", "Obsidian"],
     link: "",
+    links: {
+      github: "https://github.com/kazushi-tech/ai-news-bot", // Dummy
+      docs: "https://github.com/kazushi-tech/ai-news-bot/blob/main/README.md", // Dummy
+      sample: "https://github.com/kazushi-tech/ai-news-bot/blob/main/samples/daily-summary.md", // Dummy
+    },
     caseStudyUrl: "/projects/ai-news-bot",
     thumbnail: aiNewsBotThumb,
   },

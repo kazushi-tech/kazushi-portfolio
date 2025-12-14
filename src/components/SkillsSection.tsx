@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from './Container';
 
 type Skill = {
   name: string;
@@ -54,8 +55,8 @@ const SKILL_CATEGORIES: SkillCategory[] = [
 
 const SkillsSection: React.FC = () => {
   return (
-    <section id="skills" className="py-24 bg-background relative border-t border-white/5">
-      <div className="container mx-auto px-8 lg:px-12">
+    <section id="skills" className="py-24 bg-background relative border-t border-white/5 scroll-mt-28">
+      <Container>
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Technical <span className="text-neon-orange">Arsenal</span>
@@ -65,7 +66,7 @@ const SkillsSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
           {SKILL_CATEGORIES.map((category, idx) => (
             <div 
               key={idx} 
@@ -103,7 +104,7 @@ const SkillsSection: React.FC = () => {
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

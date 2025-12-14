@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProjectsSection from '../components/ProjectsSection';
 import AboutSection from '../components/AboutSection';
@@ -9,6 +9,24 @@ import Footer from '../components/Footer';
 import { useDocumentHead } from '../hooks/useDocumentHead';
 
 const HomePage: React.FC = () => {
+  const { hash } = useLocation();
+
+  // Robust Hash Scroll Handler
+  useEffect(() => {
+    if (hash) {
+      // Small timeout to ensure DOM is ready and main thread is clear
+      const timer = setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'auto' }); // 'auto' for instant jump on load
+        }
+      }, 100); // 100ms delay covers most rendering
+
+      return () => clearTimeout(timer);
+    }
+  }, [hash]);
+
   useDocumentHead({
     title: undefined, // Use default title for home
     description: 'Webマーケティング × AIツール × フロントエンド開発で、「めんどうだけど大事なこと」を仕組み化するクリエイター。KireiRoutine、AI News Bot、Concept Visualsなど個人開発プロジェクトを公開中。',
@@ -32,8 +50,6 @@ const HomePage: React.FC = () => {
            }}
            aria-hidden="true">
       </div>
-      
-      <Header />
       
       <main id="main-content" className="relative z-10 flex flex-col" role="main">
         <Hero />

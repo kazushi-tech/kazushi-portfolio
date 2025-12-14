@@ -1,14 +1,15 @@
 import React from 'react';
 import profileImage from '../assets/profile/omats-profile.jpg';
+import Container from './Container';
 
 const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-24 bg-background relative border-t border-white/5">
-      <div className="container mx-auto px-8 lg:px-12">
-        <div className="flex flex-col md:flex-row gap-16 items-start">
+    <section id="about" className="py-24 bg-background relative border-t border-white/5 scroll-mt-28">
+      <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           
           {/* Text Side */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full">
             <div className="inline-block px-3 py-1 mb-6 border border-neon-orange rounded-full bg-neon-orange/5">
               <span className="text-neon-orange text-xs font-bold uppercase tracking-wider">About Me</span>
             </div>
@@ -56,17 +57,17 @@ const AboutSection: React.FC = () => {
           </div>
 
           {/* Image Side */}
-          <div className="w-full md:w-1/2 relative">
+          <div className="w-full relative">
             {/* Decorative frame */}
             <div className="absolute -inset-4 border border-white/5 z-0 hidden md:block"></div>
             <div className="absolute -top-6 -right-6 w-24 h-24 border-t-2 border-r-2 border-neon-cyan opacity-50 hidden md:block"></div>
             
             <div className="relative z-10 bg-slate-950 w-full max-w-xs mx-auto md:max-w-md md:ml-auto border border-white/10 overflow-hidden group transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,240,255,0.15)] hover:border-neon-cyan/30">
-              <div className="aspect-[3/4] overflow-hidden">
+              <div className="aspect-[4/5] overflow-hidden">
                 <img 
                   src={profileImage}
                   alt="Profile of Kazushi" 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-[50%_20%] transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               {/* Caption */}
@@ -83,7 +84,7 @@ const AboutSection: React.FC = () => {
           </div>
 
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

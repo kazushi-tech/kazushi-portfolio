@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from './Button';
+import Container from './Container';
 
 type FormErrors = {
   name?: string;
@@ -57,11 +58,11 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-background">
+    <section id="contact" className="py-24 relative overflow-hidden bg-background scroll-mt-28">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-background to-slate-950 z-0"></div>
       
-      <div className="container mx-auto px-8 lg:px-12 relative z-10">
+      <Container className="relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
             Let's <span className="text-neon-orange">Collaborate</span>
@@ -72,7 +73,7 @@ const ContactSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           
           {/* Links & Info */}
           <div className="flex flex-col justify-center space-y-8 p-8 border border-white/5 bg-slate-900 backdrop-blur-sm rounded-xl">
@@ -139,7 +140,7 @@ const ContactSection: React.FC = () => {
                 type="text" 
                 id="name" 
                 name="name" 
-                className={`w-full bg-slate-900 border p-4 text-white focus:outline-none transition-all rounded ${
+                className={`w-full bg-slate-900 border px-4 py-3 text-base text-white focus:outline-none transition-all rounded ${
                   errors.name 
                     ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' 
                     : 'border-white/10 focus:border-neon-orange focus:ring-1 focus:ring-neon-orange'
@@ -159,7 +160,7 @@ const ContactSection: React.FC = () => {
                 type="email" 
                 id="email" 
                 name="email" 
-                className={`w-full bg-slate-900 border p-4 text-white focus:outline-none transition-all rounded ${
+                className={`w-full bg-slate-900 border px-4 py-3 text-base text-white focus:outline-none transition-all rounded ${
                   errors.email 
                     ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' 
                     : 'border-white/10 focus:border-neon-orange focus:ring-1 focus:ring-neon-orange'
@@ -179,7 +180,7 @@ const ContactSection: React.FC = () => {
                 id="message" 
                 name="message" 
                 rows={5}
-                className={`w-full bg-slate-900 border p-4 text-white focus:outline-none transition-all resize-none rounded ${
+                className={`w-full bg-slate-900 border px-4 py-3 text-base text-white focus:outline-none transition-all resize-none rounded ${
                   errors.message 
                     ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' 
                     : 'border-white/10 focus:border-neon-orange focus:ring-1 focus:ring-neon-orange'
@@ -199,7 +200,7 @@ const ContactSection: React.FC = () => {
           </form>
 
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

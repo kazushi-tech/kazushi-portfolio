@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { COPY } from '../../constants/copy';
 
 type ProjectNavigationProps = {
   prevProject?: {
@@ -17,7 +18,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
   nextProject,
 }) => {
   return (
-    <div className="pt-10 border-t border-slate-800/50 space-y-6">
+    <div className="pt-10 border-t border-slate-800/50 space-y-8">
       {/* Prev / Next in one row */}
       {(prevProject || nextProject) && (
         <div className="flex justify-between items-center gap-4">
@@ -30,7 +31,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                 ←
               </span>
               <div className="text-left">
-                <p className="text-[10px] uppercase tracking-wider text-slate-500">Previous</p>
+                <p className="text-[10px] text-slate-500">PREVIOUS</p>
                 <p className="text-sm font-medium">{prevProject.name}</p>
               </div>
             </Link>
@@ -44,7 +45,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
               className="flex items-center gap-3 text-slate-400 hover:text-emerald-400 transition-colors group text-right"
             >
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-slate-500">Next</p>
+                <p className="text-[10px] text-slate-500">NEXT</p>
                 <p className="text-sm font-medium">{nextProject.name}</p>
               </div>
               <span className="w-10 h-10 rounded-full bg-slate-800/60 border border-slate-700/50 flex items-center justify-center group-hover:border-emerald-500/40 transition-colors">
@@ -57,13 +58,13 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
         </div>
       )}
 
-      {/* Back to projects - centered and prominent */}
-      <div className="flex justify-center pt-4">
-        <Link
-          to="/#projects"
-          className="inline-flex items-center gap-3 rounded-full bg-emerald-500/90 px-8 py-3 text-base font-semibold text-slate-950 hover:bg-emerald-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+      {/* Back to projects */}
+      <div className="flex justify-center">
+        <Link 
+          to="/#projects" 
+          className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-slate-700/50 hover:bg-slate-800/50 text-slate-400 hover:text-emerald-400 transition-colors text-sm"
         >
-          ← Back to Projects
+          {COPY.BREADCRUMB.BACK_TO_PROJECTS}
         </Link>
       </div>
     </div>

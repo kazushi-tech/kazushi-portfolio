@@ -8,6 +8,7 @@ import aiNewsCommandCenter from '../assets/projects/concept-visuals/ai-news-comm
 import aiNewsDataStream from '../assets/projects/concept-visuals/ai-news-data-stream.jpeg';
 import kzWorkspaceDesk from '../assets/projects/concept-visuals/kz-workspace-night-desk.jpeg';
 
+
 const AiNewsBotPage: React.FC = () => {
   useDocumentHead({
     title: 'AI News Bot - ニュース自動要約パイプライン',
@@ -27,6 +28,11 @@ const AiNewsBotPage: React.FC = () => {
       role="Architect, Backend Engineer"
       period="2024–2025"
       tools={['Node.js', 'TypeScript', 'Gemini API', 'Markdown', 'Obsidian']}
+      links={{
+        github: "https://github.com/kazushi-tech/ai-news-bot",
+        docs: "https://github.com/kazushi-tech/ai-news-bot#readme",
+        sample: "https://github.com/kazushi-tech/ai-news-bot/blob/main/samples/output.md",
+      }}
       metrics={[
         { label: 'Status', value: '開発中' },
         { label: 'Sources', value: '5+' },
@@ -37,26 +43,29 @@ const AiNewsBotPage: React.FC = () => {
         solution: 'Gemini APIで自動要約し、Obsidianに構造化ノートとして保存',
         impact: 'ニュースチェック時間を削減、ナレッジベースとして蓄積中',
       }}
-      keyScreens={[
-        {
-          src: aiNewsCommandCenter,
-          alt: 'コマンドセンター',
-          title: 'Command Center',
-          caption: 'ニュース収集・要約のダッシュボードコンセプト。',
-        },
-        {
-          src: aiNewsDataStream,
-          alt: 'データストリーム',
-          title: 'Data Stream',
-          caption: 'ニュースフローの可視化イメージ。',
-        },
-        {
-          src: kzWorkspaceDesk,
-          alt: 'ワークスペース',
-          title: 'Development',
-          caption: '開発環境のイメージ。',
-        },
-      ]}
+      
+      howItWorks={{
+        title: 'How It Works',
+        steps: [
+          { title: 'Source Input', description: 'TechニュースサイトやRSSフィードからURLリストを投入', icon: '🔗' },
+          { title: 'Extraction', description: 'Cheerio/Puppeteerで記事本文を抽出し、広告・ノイズを除去', icon: '🧹' },
+          { title: 'Summarization', description: 'Gemini API (Flash 1.5) にプロンプトと共に送信し要約生成', icon: '🤖' },
+          { title: 'Archiving', description: 'Frontmatter付きMarkdownとして保存し、Vaultのインデックスを更新', icon: '📦' },
+        ]
+      }}
+
+      roadmap={{
+        title: 'Development Roadmap',
+        items: [
+          { label: 'CLIベースのニュース取得・要約', status: 'now' },
+          { label: 'Gemini API プロンプト最適化', status: 'now' },
+          { label: 'Obsidian用Markdown出力', status: 'now' },
+          { label: 'Web UI (Dashboard) の実装', status: 'next' },
+          { label: 'Slack / Discord 通知連携', status: 'next' },
+          { label: '過去記事のベクトル検索・Q&A機能', status: 'next' },
+        ]
+      }}
+
       features={[
         {
           title: 'Gemini API 自動要約',
@@ -84,34 +93,8 @@ const AiNewsBotPage: React.FC = () => {
             alt: 'Obsidian連携',
           },
         },
-        {
-          title: 'CLI駆動',
-          description: 'Node.js CLIツールとして実装、cronでスケジュール実行可能。',
-          bullets: [
-            'ターミナルから簡単実行',
-            'cron/タスクスケジューラ連携',
-            'ログ出力とエラーハンドリング',
-          ],
-        },
       ]}
-      process={[
-        {
-          step: 'ソース選定',
-          description: 'AI・Tech系のニュースソースをリストアップ。',
-        },
-        {
-          step: 'CLIツール実装',
-          description: 'Node.js × TypeScript でニュース取得・保存の基礎を実装。',
-        },
-        {
-          step: 'Gemini API 統合',
-          description: '要約機能を追加、プロンプト設計で品質チューニング。',
-        },
-        {
-          step: 'Obsidian連携',
-          description: 'Markdown保存、インデックス自動生成を実装。',
-        },
-      ]}
+      
       outcome={{
         results: '開発中。ニュース収集→要約→保存のパイプラインは動作。Publish機能やWeb UIを今後検討。',
         learnings: [
@@ -127,20 +110,6 @@ const AiNewsBotPage: React.FC = () => {
           alt: 'サムネイル',
           title: 'Project Thumbnail',
           caption: 'プロジェクトサムネイル',
-        },
-        {
-          id: 'command-center',
-          src: aiNewsCommandCenter,
-          alt: 'コマンドセンター',
-          title: 'Command Center',
-          caption: 'ダッシュボードコンセプト',
-        },
-        {
-          id: 'data-stream',
-          src: aiNewsDataStream,
-          alt: 'データストリーム',
-          title: 'Data Stream',
-          caption: 'ニュースフロー可視化',
         },
         {
           id: 'workspace',
