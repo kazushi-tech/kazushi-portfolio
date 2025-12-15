@@ -21,6 +21,17 @@ body {
     "Segoe UI", sans-serif;
 }
 
+/* Offset anchor scroll to account for fixed header height */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+@media (min-width: 768px) {
+  section[id] {
+    scroll-margin-top: 7rem;
+  }
+}
+
 /* Custom scroll indicator animation */
 @keyframes scroll-bounce {
   0%, 100% {
