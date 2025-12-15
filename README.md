@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Kazushi Portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio site for showcasing projects and skills.
 
-This contains everything you need to run your app locally.
+## Tech Stack
+- Vite + React + TypeScript
+- React Router
+- Tailwind CSS
 
-View your app in AI Studio: https://ai.studio/apps/drive/1UW9PzhuxbTc8dqc_MT7gDOUeuwsOycZ7
+## Getting Started (Local)
+```bash
+npm install
+npm run dev
+```
 
-## Run Locally
+Open: http://localhost:5173
 
-**Prerequisites:**  Node.js
+## Build
+```bash
+npm run build
+npm run preview -- --host
+```
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Deploy (Vercel)
+This repo is connected to Vercel. Pushing to main triggers a production deployment.
